@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Skin Care Consultant</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+
+    <style>
+        /* Reset and enforce full-page layout */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f9f6f0; /* Gentle, soft-tonal skincare theme background */
+        }
+
+        /* Fullscreen container for the n8n chat widget */
+        #n8n-chat {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+        }
+
+        /* Optional customization: Tweak internal chat variables via CSS override if desired */
+        :root {
+            --n8n-chat-primary-color: #4a6b5c; /* Sage green premium look */
+            --n8n-chat-text-color: #2d3748;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="n8n-chat"></div>
+
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+        createChat({
+            // 1. Webhook Endpoint
+            webhookUrl: 'https://ciwali65.app.n8n.cloud/webhook/81b48683-d05c-499b-9bb5-9fbab100ea6c/chat', // <-- Replace with your actual n8n Chat Trigger Webhook URL
+            
+            // 2. Connection Settings
+            webhookConfig: {
+                method: 'POST',
+                headers: {}
+            },
+            
+            // 3. Display Mode & Target Configuration
+            target: '#n8n-chat',
+            mode: 'fullscreen', // Forces widget to take full width and height of container
+            
+            // 4. Session & State Variables
+            chatInputKey: 'chatInput',
+            chatSessionKey: 'sessionId',
+            loadPreviousSession: true,
+            metadata: {},
+            showWelcomeScreen: false,
+            
+            // 5. Localization & Copy Configurations
+            defaultLanguage: 'en',
+            initialMessages: [
+                'Welcome to your Personal Skin Care Clinic! 🌿✨',
+                'I am your AI Skincare Consultant. To get started, please tell me a bit about your skin type, or upload a clear photo of the skin condition you would like me to analyze.'
+            ],
+            i18n: {
+                en: {
+                    title: 'Skin Care Consultant',
+                    subtitle: 'Analyze your skin condition and discover your personalized routine.',
+                    footer: 'Powered by AI — Always consult a dermatologist for medical conditions.',
+                    getStarted: 'Start New Consultation',
+                    inputPlaceholder: 'Describe your skin concern or ask about routines...',
+                },
+            },
+            
+            // 6. File Upload Controls (Tailored for Skincare Uploads)
+            allowFileUploads: true,
+            allowedFilesMimeTypes: 'image/*', // Accepts jpeg, png, webp, etc.
+            
+            // 7. Performance Mode (Strict Rule: Stream Mode Off)
+            enableStreaming: false
+        });
+    </script>
+</body>
+</html>
